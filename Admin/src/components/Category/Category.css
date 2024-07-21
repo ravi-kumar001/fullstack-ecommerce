@@ -1,0 +1,32 @@
+.category-display {
+    border: 2px solid;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    margin: 16px 0;
+  }
+  
+  .category-name {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  
+  .category-images {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .category-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s;
+  }
+  
+  .category-image:hover {
+    transform: scale(1.1);
+  }
+  
