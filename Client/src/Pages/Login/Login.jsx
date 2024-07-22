@@ -29,6 +29,7 @@ const Login = () => {
       .post("http://localhost:4000/api/user/login", formData)
       .then((res) => {
         const data = res.data;
+        console.log(data);
         console.log(res.status);
         if (res.status == 200) {
           console.log(data.message);

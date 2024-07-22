@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ['user', 'admin', 'moderator'], // Allowed values for the role field
-    default: 'user' // Optional: Default value if none provided
+    default: 'admin' // Optional: Default value if none provided
   },
 
 });
