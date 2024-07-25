@@ -1,4 +1,5 @@
-const { default: mongoose } = require("mongoose");
+const { mongoose } = require("mongoose");
+const nodemailer = require("nodemailer");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -22,10 +23,9 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['user', 'admin', 'moderator'], // Allowed values for the role field
-    default: 'admin' // Optional: Default value if none provided
+    enum: ["user", "admin", "moderator"], // Allowed values for the role field
+    default: "admin", // Optional: Default value if none provided
   },
-
 });
 
 const categorySchema = new mongoose.Schema({
@@ -41,4 +41,48 @@ const categorySchema = new mongoose.Schema({
   },
 });
 
-module.exports = { userSchema, categorySchema };
+const fileSchema = new mongoose.Schema({
+  name: {
+    type: String,
+  },
+  imageUrl: {
+    type: String,
+  },
+  tag: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+});
+
+// for create post middleware we need to perform emailSend login before create modal
+fileSchema.post("save", async function (doc) {
+  try {
+    console.log(doc);
+
+    // create a transporter
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
+      secure: false,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_MASTER_PASSWORD,
+      },
+    });
+
+    // Send Email
+    const info = await transporter.sendMail({
+      from: process.env.SMTP_FROM,
+      to: "fanfeettutorial@gmail.com",
+      subject: "Regarding entry point creation in mongo db",
+      html: `<p>file upload successfull</p>`,
+    });
+    console.log(info);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+module.exports = { userSchema, categorySchema, fileSchema };

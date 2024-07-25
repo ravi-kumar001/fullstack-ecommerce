@@ -13,7 +13,7 @@ router.delete("/:id", deleteUser);
 router.put("/:id", updateUser);
 
 // Protected Routes demo
-router.post("/admin", auth, isAdmin, (req, res) => {
+router.get("/admin", auth, isAdmin, (req, res) => {
   res.json({
     status: 200,
     message: "Welcome to Admin Dashboard",

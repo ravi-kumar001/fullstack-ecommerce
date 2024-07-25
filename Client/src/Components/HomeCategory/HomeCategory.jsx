@@ -68,7 +68,7 @@ const HomeCategory = () => {
         >
           {categories.map((item, index) => {
             return (
-              <SwiperSlide>
+              <SwiperSlide key={index}>
                 <div
                   key={index}
                   className="item text-center cursor"
